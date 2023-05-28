@@ -2,7 +2,7 @@ const express = require("express");
 
 // crear servidor
 const app = express();
-require("./base-orm/sqlite-init-albumes");  // crear base si no existe
+require("./base-orm/sqlite-init-peliculas");  // crear base si no existe
 app.use(express.json()); // para poder leer json en el body
 
 // controlar ruta
@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   res.send("Primera entrega TP DDS!!! Grupo: ");
 });
 
-const albumesRouter = require("./routes/albumes");
+const albumesRouter = require("./routes/peliculas");
 app.use(albumesRouter);
 
 // levantar servidor
