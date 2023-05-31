@@ -20,7 +20,7 @@ async function CrearBaseSiNoExiste() {
 
     await db.run(
       `INSERT INTO peliculas VALUES
-      (1, 'star wars', 'george luca', '1977-06-01'),
+      (1, 'Star Wars', 'George Lucas', '1977-06-01'),
       (2, 'The Godfather', 'Francis Ford Coppola', '1972-03-15'),
       (3, 'Pulp Fiction', 'Quentin Tarantino', '1994-10-14'),
       (4, 'The Shawshank Redemption', 'Frank Darabont', '1994-09-23'),
