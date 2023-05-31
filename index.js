@@ -2,15 +2,15 @@ const express = require("express");
 
 // crear servidor
 const app = express();
-require("./base-orm/sqlite-init-peliculas");  // crear base si no existe
+require("./base-orm/sqlite-init");  // crear base si no existe
 app.use(express.json()); // para poder leer json en el body
 
 // controlar ruta
 app.get("/", (req, res) => {
-  res.send("Primera entrega TP DDS!!! Grupo: ");
+  res.send("Primera entrega TP DDS!!!");
 });
 
-const albumesRouter = require("./routes/peliculas");
+const albumesRouter = require("./routes/albumes");
 app.use(albumesRouter);
 
 // levantar servidor
@@ -21,5 +21,5 @@ if (!module.parent) {   // si no es llamado por otro modulo, es decir, si es el 
     console.log(`sitio escuchando en el puerto ${port}`);
   });
 }
-
 module.exports = app; // para testing
+
