@@ -7,7 +7,7 @@ app.use(express.json()); // para poder leer json en el body
 
 // controlar ruta
 app.get("/", (req, res) => {
-  res.send("Primera entrega TP DDS!!! Grupo: ");
+  res.send("Primera entrega TP DDS!!! Grupo: 13");
 });
 
 const albumesRouter = require("./routes/albumes");
@@ -21,5 +21,6 @@ if (!module.parent) {   // si no es llamado por otro modulo, es decir, si es el 
     console.log(`sitio escuchando en el puerto ${port}`);
   });
 }
-
+// Correr app
 module.exports = app; // para testing
+
