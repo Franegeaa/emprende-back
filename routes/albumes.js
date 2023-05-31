@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const db = require("../base-orm/sequelize-init");
+const db = require("../base-orm/sequelize-init-albumes");
 
 router.get("/api/albumes", async function (req, res, next) {
   let data = await db.Album.findAll({

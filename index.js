@@ -2,7 +2,7 @@ const express = require("express");
 
 // crear servidor
 const app = express();
-require("./base-orm/sqlite-init");  // crear base si no existe
+require("./base-orm/sqlite-init-albumes");  // crear base si no existe
 app.use(express.json()); // para poder leer json en el body
 
 // controlar ruta
