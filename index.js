@@ -8,6 +8,9 @@ app.get("/", (req, res) => {
   res.send("Backend inicial dds-backend!");
 });
 
+const jugadoresmockRouter = require("./routes/jugadoresmock");
+app.use(jugadoresmockRouter);
+
 // levantar servidor
 const port = 3000;
 app.listen(port, () => {
