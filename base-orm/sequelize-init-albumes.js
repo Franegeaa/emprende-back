@@ -1,10 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite:" + "./.data/peliculas.db");
+const sequelize = new Sequelize("sqlite:" + "./.data/albumes.db");
 
-const peliculas = sequelize.define(
-  "peliculas",
+const Album = sequelize.define(
+  "Album",
   {
-    idPelicula: {
+    IdAlbum: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -23,17 +23,17 @@ const peliculas = sequelize.define(
         },
       },
     },
-    Productor: {
+    Artista: {
       type: DataTypes.STRING(255),
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: "El Productor es requerido",
+          msg: "El artista es requerido",
         },
         len: {
           args: [1, 255],
-          msg: "El Productor debe tener entre 1 y 255 caracteres",
+          msg: "El artista debe tener entre 1 y 255 caracteres",
         },
       },
     },
@@ -54,12 +54,12 @@ const peliculas = sequelize.define(
   },
   {
     hooks: {
-      beforeValidate: function (peliculas, options) {
-        if (typeof peliculas.Titulo === "string") {
-          peliculas.Titulo = peliculas.Titulo.trim();
+      beforeValidate: function (album, options) {
+        if (typeof album.Titulo === "string") {
+          album.Titulo = album.Titulo.trim();
         }
-        if (typeof peliculas.Productor === "string") {
-          peliculas.Productor = peliculas.Productor.trim();
+        if (typeof album.Artista === "string") {
+          album.Artista = album.Artista.trim();
         }
       },
     },
@@ -69,5 +69,5 @@ const peliculas = sequelize.define(
 
 module.exports = {
   sequelize,
-  peliculas,
+  Album,
 };
