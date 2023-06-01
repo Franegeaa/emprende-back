@@ -15,8 +15,13 @@ const jugadoresRouter = require("./routes/jugadores");
 app.use(jugadoresRouter);
 
 
-app.get("/", (req, res) => {
-  res.send("Backend inicial tpi-backend!");
+const autos = require("./routes/autos");
+app.use(autos);
+
+
+app.get("/", (req,res)=>{
+    res.send("Backend inicial tpi-backend!");
+
 });
 
 const port = 3000;
