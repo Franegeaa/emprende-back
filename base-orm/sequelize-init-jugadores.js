@@ -1,10 +1,11 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite:" + "./.data/jugadores.db");
+const sequelize = new Sequelize("sqlite:" + "./.data/jugadoresdb.db");
+//Sequalize para manejar la bd
 
-const jugadores = sequelize.define(
-  "jugadores",
+const Jugador = sequelize.define(
+  "Jugador",
   {
-    idJugador: {
+    IdJugador: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -15,15 +16,29 @@ const jugadores = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "El Nombre es requerido",
+          msg: "El nombre es requerido",
         },
         len: {
           args: [1, 255],
-          msg: "El Nombre debe tener entre 1 y 255 caracteres",
+          msg: "El nombre debe tener entre 1 y 255 caracteres",
         },
       },
     },
-    FechaNac: {
+    Apellido: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "El apellido es requerido",
+        },
+        len: {
+          args: [1, 255],
+          msg: "El apellido debe tener entre 1 y 255 caracteres",
+        },
+      },
+    },
+    FechaNacimiento: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
@@ -40,9 +55,12 @@ const jugadores = sequelize.define(
   },
   {
     hooks: {
-      beforeValidate: function (jugadores, options) {
-        if (typeof jugadores.Nombre === "string") {
-          jugadores.Nombre = jugadores.Nombre.trim();
+      beforeValidate: function (jugador, options) {
+        if (typeof jugador.Nombre === "string") {
+          jugador.Nombre = jugador.Nombre.trim();
+        }
+        if (typeof jugador.Apellido === "string") {
+          jugador.Apellido = jugador.Artista.trim();
         }
       },
     },
@@ -52,5 +70,5 @@ const jugadores = sequelize.define(
 
 module.exports = {
   sequelize,
-  jugadores,
+  Jugador,
 };

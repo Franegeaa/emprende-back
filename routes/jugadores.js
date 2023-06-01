@@ -4,58 +4,60 @@ const router = express.Router();
 const db = require("../base-orm/sequelize-init-jugadores");
 
 router.get("/api/jugadores", async function (req, res, next) {
-  let data = await db.jugadores.findAll({
-    attributes: ["idJugador", "Nombre", "FechaNac"],
+  let data = await db.Jugador.findAll({
+    attributes: ["IdJugador", "Nombre", "Apellido", "FechaNacimiento"],
   });
   res.json(data);
 });
 
 router.get("/api/jugadores/:id", async function (req, res, next) {
   try {
-    const jugadoresid = req.params.id;
-    const jugador = await db.jugadores.findByPk(jugadoresid);
+    const jugadorId = req.params.id;
+    const jugador = await db.jugador.findByPk(jugadorId);
 
     if (jugador) {
       res.json(jugador);
     } else {
-      res.status(404).json({ mensaje: "Jugador no encontrado!" });
+      res.status(404).json({ mensaje: "No encontrado!" });
     }
   } catch (error) {
     res.status(500).json({ mensaje: "Error interno del servidor" });
   }
 });
 
-router.post("/api/jugador/", async (req, res) => {
-  let { idJugador, Nombre, FechaNac } = req.body;
+router.post("/api/jugadores/", async (req, res) => {
+  let { IdJugador, Nombre, Apellido, FechaNacimiento } = req.body;
   try {
-    let newJugador = await db.jugadores.create({
-      idJugador: idJugador,
+    let newJugador = await db.Jugador.create({
+      IdJugador: IdJugador,
       Nombre: Nombre,
-      FechaNac: FechaNac,
+      Apellido: Apellido,
+      FechaNacimiento: FechaNacimiento,
     });
     res.status(200).json(newJugador);
   } catch {
-    res.status(500).json({ mensaje: "No se ha podido agregar el jugador" });
+    res.status(500).json({ mensaje: "No se ha podido crear el jugador" });
   }
 });
 
 router.put("/api/jugadores/:id", async (req, res, next) => {
-  const idJugador = req.params.id;
-  console.log(idJugador);
-  const { Nombre, FechaNac } = req.body;
+  const jugadorId = req.params.id;
+  console.log(jugadorId);
+  const { Nombre, Apellido, FechaNacimiento } = req.body;
   try {
-    const jugador = await db.jugadores.findByPk(idJugador);
+    const jugador = await db.Jugador.findByPk(jugadorId);
     if (!jugador) {
-      return res.status(404).json({ mensaje: "Jugador no encontrado" });
+      return res.status(404).json({ mensaje: "Álbum no encontrado" });
     }
 
     jugador.Nombre = Nombre;
-    jugador.FechaNac = FechaNac;
+    jugador.Apellido = Apellido;
+    jugador.FechaNacimiento = FechaNacimiento;
     await jugador.save();
 
     res.json({ mensaje: "Jugador actualizado exitosamente" });
   } catch (error) {
-    console.error("Error al actualizar el Jugador:", error);
+    console.error("Error al actualizar el jugador:", error);
     res.status(500).json({ mensaje: "Error al actualizar el jugador" });
   }
 });
@@ -66,9 +68,9 @@ router.delete("/api/jugadores/:id", async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id);
-    const jugador = await db.jugadores.findByPk(id);
-    if (jugador) {
-      await jugador.destroy();
+    const jugadorId = await db.Jugador.findByPk(id);
+    if (jugadorId) {
+      await jugadorId.destroy();
       res.json("El jugador ha sido eliminado");
     } else {
       res
