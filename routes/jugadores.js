@@ -13,10 +13,10 @@ router.get("/api/jugadores", async function (req, res, next) {
 router.get("/api/jugadores/:id", async function (req, res, next) {
   try {
     const jugadoresid = req.params.id;
-    const jugadorid = await db.peliculas.findByPk(jugadoresid);
+    const jugador = await db.jugadores.findByPk(jugadoresid);
 
-    if (jugadorid) {
-      res.json(jugadorid);
+    if (jugador) {
+      res.json(jugador);
     } else {
       res.status(404).json({ mensaje: "Jugador no encontrado!" });
     }
@@ -49,8 +49,8 @@ router.put("/api/jugadores/:id", async (req, res, next) => {
       return res.status(404).json({ mensaje: "Jugador no encontrado" });
     }
 
-    pelicula.Nombre = Nombre;
-    pelicula.FechaNac = FechaNac;
+    jugador.Nombre = Nombre;
+    jugador.FechaNac = FechaNac;
     await jugador.save();
 
     res.json({ mensaje: "Jugador actualizado exitosamente" });
