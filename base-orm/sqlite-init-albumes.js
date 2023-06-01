@@ -1,8 +1,8 @@
 const db = require("aa-sqlite");
-
-async function CrearBaseSiNoExiste() {
   // Abrir la base de datos o crearla si no existe
-  await db.open("./.data/albumes.db");
+async function CrearBaseSiNoExiste() {
+
+  await db.open("./.data/albumesdb.db");
 
   let existe = false;
   let res = null;

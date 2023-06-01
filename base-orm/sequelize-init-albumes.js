@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite:" + "./.data/albumes.db");
+const sequelize = new Sequelize("sqlite:" + "./.data/albumesdb.db");
+//Sequalize para manejar la bd
 
 const Album = sequelize.define(
   "Album",
