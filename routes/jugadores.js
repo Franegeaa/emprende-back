@@ -13,7 +13,7 @@ router.get("/api/jugadores", async function (req, res, next) {
 router.get("/api/jugadores/:id", async function (req, res, next) {
   try {
     const jugadorId = req.params.id;
-    const jugador = await db.jugador.findByPk(jugadorId);
+    const jugador = await db.Jugador.findByPk(jugadorId);
 
     if (jugador) {
       res.json(jugador);

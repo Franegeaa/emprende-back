@@ -1,18 +1,17 @@
 const request = require("supertest");
 const app = require("../index");
 const peliculaAlta = {
-  "idPelicula": 11,
-  "Titulo": "Los vengadores",
-  "Productor": "Marvel",
-  "FechaLanzamiento": "1972-06-16"
+  idPelicula: 11,
+  Titulo: "Los vengadores",
+  Productor: "Marvel",
+  FechaLanzamiento: "1972-06-16",
 };
 const peliculaModificacion = {
   idPelicula: 2,
-  Titulo: "Pelicula modificada",  
+  Titulo: "Pelicula modificada",
   Productor: "productor modificado",
-  FechaLanzamiento:"2023-05-18"
+  FechaLanzamiento: "2023-05-18",
 };
-
 
 // metodo get
 describe("GET /api/peliculas", () => {
@@ -26,8 +25,8 @@ describe("GET /api/peliculas", () => {
           Titulo: expect.any(String),
           Productor: expect.any(String),
           FechaLanzamiento: expect.any(String),
-        })
-      ]), 
+        }),
+      ])
     );
   });
 });
@@ -42,7 +41,7 @@ describe("GET /api/peliculas/:id", () => {
         idPelicula: expect.any(Number),
         Titulo: expect.any(String),
         Productor: expect.any(String),
-        FechaLanzamiento: expect.any(String)
+        FechaLanzamiento: expect.any(String),
       })
     );
   });
@@ -64,11 +63,12 @@ describe("POST /api/peliculas", () => {
   });
 });
 
-
 // metodo put test
 describe("PUT /api/peliculas/:id", () => {
   it("Deberia devolver la pelicula con el id 2 modificado", async () => {
-    const res = await request(app).put("/api/peliculas/1").send(peliculaModificacion);
+    const res = await request(app)
+      .put("/api/peliculas/1")
+      .send(peliculaModificacion);
     expect(res.statusCode).toEqual(200);
   });
 });
