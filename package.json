@@ -1,11 +1,11 @@
 {
   "name": "entrega1-dds",
   "version": "1.0.0",
-  "description": "",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --testTimeout=10000",
-    "dev": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,6 @@
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22",
-    "supertest": "^6.3.3"
+    "nodemon": "^2.0.22"
   }
 }
