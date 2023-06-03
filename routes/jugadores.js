@@ -5,7 +5,7 @@ const db = require("../base-orm/sequelize-init-jugadores");
 
 router.get("/api/jugadores", async function (req, res, next) {
   let data = await db.Jugador.findAll({
-    attributes: ["IdJugador", "Nombre", "Apellido", "FechaNacimiento"],
+    attributes: ["IdJugador", "Nombre", "Apellido", "FechaNacimiento", "Goles"],
   });
   res.json(data);
 });
@@ -26,15 +26,16 @@ router.get("/api/jugadores/:id", async function (req, res, next) {
 });
 
 router.post("/api/jugadores/", async (req, res) => {
-  let { IdJugador, Nombre, Apellido, FechaNacimiento } = req.body;
+  let { IdJugador, Nombre, Apellido, FechaNacimiento, Goles } = req.body;
   try {
-    let newJugador = await db.Jugador.create({
+    let data = await db.Jugador.create({
       IdJugador: IdJugador,
       Nombre: Nombre,
       Apellido: Apellido,
       FechaNacimiento: FechaNacimiento,
+      Goles: Goles,
     });
-    res.status(200).json(newJugador);
+    res.status(200).json(data.dataValues);
   } catch {
     res.status(500).json({ mensaje: "No se ha podido crear el jugador" });
   }
@@ -43,16 +44,17 @@ router.post("/api/jugadores/", async (req, res) => {
 router.put("/api/jugadores/:id", async (req, res, next) => {
   const jugadorId = req.params.id;
   console.log(jugadorId);
-  const { Nombre, Apellido, FechaNacimiento } = req.body;
+  const { Nombre, Apellido, FechaNacimiento, Goles } = req.body;
   try {
     const jugador = await db.Jugador.findByPk(jugadorId);
     if (!jugador) {
-      return res.status(404).json({ mensaje: "Álbum no encontrado" });
+      return res.status(404).json({ mensaje: "jugador no encontrado" });
     }
 
     jugador.Nombre = Nombre;
     jugador.Apellido = Apellido;
     jugador.FechaNacimiento = FechaNacimiento;
+    jugador.Goles = Goles;
     await jugador.save();
 
     res.json({ mensaje: "Jugador actualizado exitosamente" });

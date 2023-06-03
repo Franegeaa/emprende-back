@@ -52,6 +52,16 @@ const Jugador = sequelize.define(
         },
       },
     },
+    Goles: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Los goles son requeridos",
+        },
+      },
+    },
   },
   {
     hooks: {
