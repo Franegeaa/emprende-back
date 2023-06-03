@@ -1,16 +1,17 @@
 const request = require("supertest");
-const app = require("../app");
+const app = require("../index");
+
 const jugadorAlta = {
-  idJugador: 11,
-  Nombre: "Jugador 102",
-  FechaNac: "1972-06-16",
-  Goles: 100,
+  Nombre: "Jorge",
+  Apellido: "Carranza",
+  FechaNacimiento: "1972-06-16",
+  Goles: 0,
 };
 const jugadorModificacion = {
-  idJugador: 2,
   Nombre: "Jugador modificado",
-  FechaNac: "2002-05-18",
-  Goles: 100,
+  Apellido: "Carranza",
+  FechaNacimiento: "2002-05-18",
+  Goles: 0,
 };
 
 // metodo get
@@ -21,9 +22,10 @@ describe("GET /api/jugadores", () => {
     expect(res.body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          idJugador: expect.any(Number),
+          IdJugador: expect.any(Number),
           Nombre: expect.any(String),
-          FechaNac: expect.any(String),
+          Apellido: expect.any(String),
+          FechaNacimiento: expect.any(String),
           Goles: expect.any(Number),
         }),
       ])
@@ -38,9 +40,10 @@ describe("GET /api/jugadores/:id", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(
       expect.objectContaining({
-        idJugador: expect.any(Number),
+        IdJugador: expect.any(Number),
         Nombre: expect.any(String),
-        FechaNac: expect.any(String),
+        Apellido: expect.any(String),
+        FechaNacimiento: expect.any(String),
         Goles: expect.any(Number),
       })
     );
@@ -54,9 +57,10 @@ describe("POST /api/jugadores", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(
       expect.objectContaining({
-        idJugador: expect.any(Number),
+        IdJugador: expect.any(Number),
         Nombre: expect.any(String),
-        FechaNac: expect.any(String),
+        Apellido: expect.any(String),
+        FechaNacimiento: expect.any(String),
         Goles: expect.any(Number),
       })
     );
@@ -65,9 +69,9 @@ describe("POST /api/jugadores", () => {
 
 // metodo put test
 describe("PUT /api/jugadores/:id", () => {
-  it("Deberia devolver el jugador con el id 2 modificado", async () => {
+  it("Deberia devolver el jugador con el id 11 modificado", async () => {
     const res = await request(app)
-      .put("/api/jugadores/1")
+      .put("/api/jugadores/5")
       .send(jugadorModificacion);
     expect(res.statusCode).toEqual(200);
   });
@@ -76,7 +80,7 @@ describe("PUT /api/jugadores/:id", () => {
 // test route/albumes/:id DELETE
 describe("DELETE /api/jugadores/:id", () => {
   it("Deberia devolver el jugador con el id 11 borrado", async () => {
-    const res = await request(app).delete("/api/jugadores/11");
+    const res = await request(app).delete("/api/jugadores/1");
     expect(res.statusCode).toEqual(200);
   });
 });

@@ -25,7 +25,7 @@ router.get("/api/jugadores/:id", async function (req, res, next) {
   }
 });
 
-router.post("/api/jugadores/", async (req, res) => {
+router.post("/api/jugadores", async (req, res) => {
   try {
     const { Nombre, Apellido, FechaNacimiento, Goles } = req.body;
     let jugador = await db.Jugador.create({
@@ -34,8 +34,8 @@ router.post("/api/jugadores/", async (req, res) => {
       FechaNacimiento: FechaNacimiento,
       Goles: Goles,
     });
-    res.status(200).json(jugador);
-  } catch {
+    res.json(jugador);
+  } catch (error) {
     res.status(500).json({ mensaje: "No se ha podido crear el jugador" });
   }
 });

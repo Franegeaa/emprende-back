@@ -70,7 +70,7 @@ const Jugador = sequelize.define(
           jugador.Nombre = jugador.Nombre.trim();
         }
         if (typeof jugador.Apellido === "string") {
-          jugador.Apellido = jugador.Artista.trim();
+          jugador.Apellido = jugador.Apellido.trim();
         }
       },
     },
