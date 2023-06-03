@@ -51,6 +51,16 @@ const peliculas = sequelize.define(
         },
       },
     }, 
+    DuracionMinutos: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "La duración es requerida",
+        },
+      },
+    },
   },
   {
     hooks: {
