@@ -51,7 +51,17 @@ const Album = sequelize.define(
           msg: "La fecha de lanzamiento debe tener un formato válido",
         },
       },
-    }, 
+    },
+    idgenero: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Precio es requerido",
+        }
+      }
+    },
   },
   {
     hooks: {

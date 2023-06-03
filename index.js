@@ -9,9 +9,6 @@ app.use(express.json()); // para poder leer json en el body
 const peliculasRouter = require("./routes/peliculas");
 app.use(peliculasRouter);
 
-const jugadoresmockRouter = require("./routes/jugadoresmock");
-app.use(jugadoresmockRouter);
-
 const jugadoresRouter = require("./routes/jugadores");
 app.use(jugadoresRouter);
 

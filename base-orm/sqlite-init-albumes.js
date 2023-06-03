@@ -14,7 +14,7 @@ async function CrearBaseSiNoExiste() {
   if (res.contar > 0) existe = true;
   if (!existe) {
     await db.run(
-      "CREATE TABLE albums( IdAlbum INTEGER PRIMARY KEY AUTOINCREMENT, Titulo TEXT NOT NULL, Artista TEXT NOT NULL, FechaLanzamiento TEXT NOT NULL, IdGenero INTEGER);"
+      "CREATE TABLE albums( IdAlbum INTEGER PRIMARY KEY AUTOINCREMENT, Titulo TEXT NOT NULL, Artista TEXT NOT NULL, FechaLanzamiento TEXT NOT NULL, idgenero INTEGER);"
     );
     console.log("Tabla albums creada!");
 
