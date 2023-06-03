@@ -5,7 +5,7 @@ const db = require("../base-orm/sequelize-init-peliculas");
 
 router.get("/api/peliculas", async function (req, res, next) {
   let data = await db.peliculas.findAll({
-    attributes: ["idPelicula", "Titulo", "Productor","FechaLanzamiento"],
+    attributes: ["idPelicula", "Titulo", "Productor","FechaLanzamiento", "DuracionMinutos"],
   });
   res.json(data);
 });
@@ -32,13 +32,15 @@ router.post('/api/peliculas/', async (req, res) => {
         Titulo,
         Productor,
         FechaLanzamiento,
+        DuracionMinutos,
     } = req.body;
     try {
         let newPelicula = await db.peliculas.create({
             idPelicula: idPelicula,
             Titulo: Titulo,
             Productor: Productor,
-            FechaLanzamiento: FechaLanzamiento
+            FechaLanzamiento: FechaLanzamiento,
+            DuracionMinutos: DuracionMinutos,
         });
         res.status(200).json(newPelicula);
     } catch {
@@ -50,7 +52,7 @@ router.post('/api/peliculas/', async (req, res) => {
 router.put('/api/peliculas/:id', async (req, res, next) => {
     const idPelicula = req.params.id;
     console.log(idPelicula)
-    const { Titulo, Productor, FechaLanzamiento } = req.body;
+    const { Titulo, Productor, FechaLanzamiento, DuracionMinutos } = req.body;
     try {
       const pelicula = await db.peliculas.findByPk(idPelicula);
       if (!pelicula) {
@@ -60,6 +62,7 @@ router.put('/api/peliculas/:id', async (req, res, next) => {
       pelicula.Titulo = Titulo;
       pelicula.Productor = Productor; 
       pelicula.FechaLanzamiento = FechaLanzamiento;
+      pelicula.DuracionMinutos = DuracionMinutos;
       await pelicula.save();
   
       res.json({ mensaje: 'Pelicula actualizado exitosamente' });

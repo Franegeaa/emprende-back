@@ -5,12 +5,14 @@ const peliculaAlta = {
   Titulo: "Los vengadores",
   Productor: "Marvel",
   FechaLanzamiento: "1972-06-16",
+  DuracionMinutos: 120
 };
 const peliculaModificacion = {
   idPelicula: 2,
   Titulo: "Pelicula modificada",
-  Productor: "productor modificado",
+  Productor: "Productor modificado",
   FechaLanzamiento: "2023-05-18",
+  DuracionMinutos: 154
 };
 
 // metodo get
@@ -25,6 +27,7 @@ describe("GET /api/peliculas", () => {
           Titulo: expect.any(String),
           Productor: expect.any(String),
           FechaLanzamiento: expect.any(String),
+          DuracionMinutos: expect.any(Number),
         }),
       ])
     );
@@ -42,6 +45,7 @@ describe("GET /api/peliculas/:id", () => {
         Titulo: expect.any(String),
         Productor: expect.any(String),
         FechaLanzamiento: expect.any(String),
+        DuracionMinutos: expect.any(Number),
       })
     );
   });
@@ -58,6 +62,7 @@ describe("POST /api/peliculas", () => {
         Titulo: expect.any(String),
         Productor: expect.any(String),
         FechaLanzamiento: expect.any(String),
+        DuracionMinutos: expect.any(Number),
       })
     );
   });
