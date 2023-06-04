@@ -1,7 +1,6 @@
 const request = require("supertest");
 const app = require("../index");
 const peliculaAlta = {
-  idPelicula: 11,
   Titulo: "Los vengadores",
   Productor: "Marvel",
   FechaLanzamiento: "1972-06-16",
