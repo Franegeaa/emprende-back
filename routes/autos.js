@@ -3,7 +3,7 @@ const router = express.Router();
 const Auto = require("../modelos/auto.js");
 
 // Obtener todos los autos
-router.get('/autos', async function(req, res, next)  {
+router.get('/api/autos', async function(req, res, next)  {
     try {
       const autos = await Auto.findAll();
       res.json(autos);
@@ -13,7 +13,7 @@ router.get('/autos', async function(req, res, next)  {
   });
   
   // Obtener un auto por ID
-  router.get('/autos/:id', async function(req, res, next)  {
+  router.get('/api/autos/:id', async function(req, res, next)  {
     const { id } = req.params;
     try {
       const auto = await Auto.findByPk(id);
@@ -28,7 +28,7 @@ router.get('/autos', async function(req, res, next)  {
   });
   
   // Crear un nuevo auto
-  router.post('/autos', async (req, res) => {
+  router.post('/api/autos', async (req, res) => {
     const { nombre, marca, modelo, fecha, puertas } = req.body;
     try {
       const auto = await Auto.create({ nombre, marca, modelo, fecha, puertas });
@@ -39,7 +39,7 @@ router.get('/autos', async function(req, res, next)  {
   });
   
   // Actualizar un auto por ID
-  router.put('/autos/:id', async (req, res) => {
+  router.put('/api/autos/:id', async (req, res) => {
     const { id } = req.params;
     const { nombre, marca, modelo, fecha, puertas } = req.body;
     try {
@@ -61,7 +61,7 @@ router.get('/autos', async function(req, res, next)  {
   });
   
   // Eliminar un auto por ID
-  router.delete('/autos/:id', async (req, res) => {
+  router.delete('/api/autos/:id', async (req, res) => {
     const { id } = req.params;
     try {
       const auto = await Auto.findByPk(id);
