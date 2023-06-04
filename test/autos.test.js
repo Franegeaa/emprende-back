@@ -1,8 +1,8 @@
 const request = require("supertest");
-
+const app = require("../index");
 describe("GET /api/autos", ()=>{
     it("Deberia devolver cod 200 con un listado de autos no vacios", async()=>{
-        const res = await request("localhost:3000")
+        const res = await request(app)
         .get('/api/autos')
         .set('Accept', 'application/json');
         expect(res.status).toEqual(200);
@@ -25,7 +25,7 @@ describe("GET /api/autos", ()=>{
 
 describe("POST /api/autos", ()=>{
     it("Deberia devolver 200 con un auto creado", async ()=>{
-        const res = await request('localhost:3000')
+        const res = await request(app)
         .post("/api/autos")
         .set("Accept", "application/json")
         .send({
@@ -55,7 +55,7 @@ describe("POST /api/autos", ()=>{
 })
 describe("PUT /api/autos/:id", ()=>{
     it("Deberia devolver 200 con un auto modificado", async ()=>{
-        const res = await request('localhost:3000')
+        const res = await request(app)
         .put("/api/autos/11")
         .set("Accept", "application/json")
         .send({
@@ -85,7 +85,7 @@ describe("PUT /api/autos/:id", ()=>{
 })
 describe("DELETE /api/autos/:id", ()=>{
     it("Deberia devolver 200 con un auto eliminado", async ()=>{
-        const res = await request('localhost:3000')
+        const res = await request(app)
         .delete("/api/autos/10")
         .set("Accept", "application/json")
         expect(res.status).toEqual(200);
