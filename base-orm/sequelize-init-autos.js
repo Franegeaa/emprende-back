@@ -1,9 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: '.data/autos.db',
-});
+const sequelize = new Sequelize('sqlite:' +'./.data/autos.db');
 const Auto = sequelize.define('auto', {
   id: {
     type: DataTypes.INTEGER,
@@ -22,24 +19,15 @@ const Auto = sequelize.define('auto', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  fecha: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   puertas: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  fecha: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  }
 });
 
-// Sincroniza el modelo con la base de datos
 
-sequelize.sync()
-  .then(() => {
-    console.log('Tablas sincronizadas');
-  })
-  .catch((error) => {
-    console.error('Error al sincronizar las tablas:', error);
-  });
-
-module.exports = Auto;
+module.exports = {sequelize, Auto};
