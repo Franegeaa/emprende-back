@@ -16,7 +16,7 @@ router.get('/api/autos', async function(req, res, next)  {
   
   // Obtener un auto por ID
   router.get('/api/autos/:id', async function(req, res, next)  {
-    const { id } = req.params;
+    const id  = req.params.id;
     try {
       const auto = await db.Auto.findByPk(id);
       if (auto) {

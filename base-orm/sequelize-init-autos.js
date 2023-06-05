@@ -1,22 +1,22 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('sqlite:' +'./.data/autos.db');
-const Auto = sequelize.define('auto', {
+const Auto = sequelize.define('Auto', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
   nombre: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   marca: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   modelo: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   puertas: {
@@ -27,6 +27,8 @@ const Auto = sequelize.define('auto', {
     type: DataTypes.DATEONLY,
     allowNull: false,
   }
+}, {
+  timestamps: false
 });
 
 
