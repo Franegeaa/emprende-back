@@ -13,15 +13,31 @@ describe("GET /api/autos", ()=>{
                     nombre: expect.any(String),
                     marca: expect.any(String),
                     modelo: expect.any(String),
-                    fecha: expect.any(String),
                     puertas: expect.any(Number),
-                    createdAt: expect.any(String),
-                    updatedAt: expect.any(String)
+                    fecha: expect.any(String)
                 })
             ])
         );
     })
 })
+describe("GET /api/autos/:id", () => {
+    it("Deberia devolver el auto con el id 10", async () => {
+      const res = await request(app)
+      .get("/api/autos/10")
+      .set('Accept', 'application/json');
+      expect(res.status).toEqual(200);
+      expect(res.body).toEqual(
+        expect.objectContaining({
+            id: expect.any(Number),
+            nombre: expect.any(String),
+            marca: expect.any(String),
+            modelo: expect.any(String),
+            puertas: expect.any(Number),
+            fecha: expect.any(String)
+        })
+      );
+    });
+  });
 
 describe("POST /api/autos", ()=>{
     it("Deberia devolver 200 con un auto creado", async ()=>{
@@ -32,10 +48,8 @@ describe("POST /api/autos", ()=>{
             "nombre": 'fiesta',
             "marca": "ford",
             "modelo": "2012",
-            "fecha": "2000-12-05",
             "puertas": 2,
-            "createdAt": 'fecha1',
-            "updatedAt": 'fecha2'
+            "fecha": "2000-12-05"
         });
         expect(res.status).toEqual(200);
         expect(res.body).toEqual(
@@ -45,10 +59,8 @@ describe("POST /api/autos", ()=>{
                 nombre: expect.any(String),
                 marca: expect.any(String),
                 modelo: expect.any(String),
-                fecha: expect.any(String),
                 puertas: expect.any(Number),
-                createdAt: expect.any(String),
-                updatedAt: expect.any(String)
+                fecha: expect.any(String)
             })
     );
     })
@@ -62,10 +74,8 @@ describe("PUT /api/autos/:id", ()=>{
             "nombre": 'fiesta',
             "marca": "ford",
             "modelo": "2012",
-            "fecha": "2000",
             "puertas": 2,
-            "createdAt": 'fecha1',
-            "updatedAt": 'fecha2'
+            "fecha": "2000-05-01"
         });
         expect(res.status).toEqual(200);
         expect(res.body).toEqual(
@@ -75,10 +85,9 @@ describe("PUT /api/autos/:id", ()=>{
                 nombre: expect.any(String),
                 marca: expect.any(String),
                 modelo: expect.any(String),
-                fecha: expect.any(String),
                 puertas: expect.any(Number),
-                createdAt: expect.any(String),
-                updatedAt: expect.any(String)
+                fecha: expect.any(String)
+
             })
     );
     })

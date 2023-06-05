@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Auto = require("../modelos/auto.js");
+const db = require("../base-orm/sequelize-init-autos.js");
 
 // Obtener todos los autos
 router.get('/api/autos', async function(req, res, next)  {
     try {
-      const autos = await Auto.findAll();
+      const autos = await db.Auto.findAll({
+        attributes: ["id", "nombre", "marca", "modelo", "puertas", "fecha"],
+      });
       res.json(autos);
     } catch (error) {
       res.status(500).json({ error: 'Error al obtener los autos' });
@@ -14,9 +16,9 @@ router.get('/api/autos', async function(req, res, next)  {
   
   // Obtener un auto por ID
   router.get('/api/autos/:id', async function(req, res, next)  {
-    const { id } = req.params;
+    const id  = req.params.id;
     try {
-      const auto = await Auto.findByPk(id);
+      const auto = await db.Auto.findByPk(id);
       if (auto) {
         res.json(auto);
       } else {
@@ -29,9 +31,9 @@ router.get('/api/autos', async function(req, res, next)  {
   
   // Crear un nuevo auto
   router.post('/api/autos', async (req, res) => {
-    const { nombre, marca, modelo, fecha, puertas } = req.body;
+    const { nombre, marca, modelo, puertas, fecha } = req.body;
     try {
-      const auto = await Auto.create({ nombre, marca, modelo, fecha, puertas });
+      const auto = await db.Auto.create({ nombre: nombre, marca: marca,modelo: modelo, puertas: puertas, fecha: fecha });
       res.json(auto);
     } catch (error) {
       res.status(500).json({ error: 'Error al crear el auto' });
@@ -41,15 +43,15 @@ router.get('/api/autos', async function(req, res, next)  {
   // Actualizar un auto por ID
   router.put('/api/autos/:id', async (req, res) => {
     const { id } = req.params;
-    const { nombre, marca, modelo, fecha, puertas } = req.body;
+    const { nombre, marca, modelo, puertas, fecha } = req.body;
     try {
-      const auto = await Auto.findByPk(id);
+      const auto = await db.Auto.findByPk(id);
       if (auto) {
         auto.nombre = nombre;
         auto.marca = marca;
         auto.modelo = modelo;
-        auto.fecha = fecha;
         auto.puertas = puertas;
+        auto.fecha = fecha;
         await auto.save();
         res.json(auto);
       } else {
@@ -64,7 +66,7 @@ router.get('/api/autos', async function(req, res, next)  {
   router.delete('/api/autos/:id', async (req, res) => {
     const { id } = req.params;
     try {
-      const auto = await Auto.findByPk(id);
+      const auto = await db.Auto.findByPk(id);
       if (auto) {
         await auto.destroy();
         res.json({ message: 'Auto eliminado correctamente' });
