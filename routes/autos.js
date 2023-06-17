@@ -1,18 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../base-orm/sequelize-init-autos.js");
+const { Op, ValidationError } = require("sequelize");
 
 // Obtener todos los autos
-router.get('/api/autos', async function(req, res, next)  {
-    try {
-      const autos = await db.Auto.findAll({
+router.get('/api/autos', async function(req, res)  {
+  let where = {};
+  if (req.query.nombre != undefined && req.query.nombre !== "") {
+    where.nombre = {
+      [Op.like]: "%" + req.query.nombre + "%",
+    };
+  }
+
+      let autos = await db.Auto.findAll({
         attributes: ["id", "nombre", "marca", "modelo", "puertas", "fecha"],
+      where,
       });
       res.json(autos);
-    } catch (error) {
-      res.status(500).json({ error: 'Error al obtener los autos' });
-    }
-  });
+
+    });
   
   // Obtener un auto por ID
   router.get('/api/autos/:id', async function(req, res, next)  {
