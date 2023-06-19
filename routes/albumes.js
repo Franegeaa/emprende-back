@@ -2,6 +2,31 @@ const express = require("express");
 const router = express.Router();
 //Administrar albumes
 const db = require("../base-orm/sequelize-init-albumes");
+const { Op, ValidationError } = require("sequelize");
+
+router.get("/api/albumes", async function (req, res) {
+  // consulta de albumes con filtros y paginacion
+
+  let where = {};
+  if (req.query.Titulo != undefined && req.query.Titulo !== "") {
+    where.Titulo = {
+      [Op.like]: "%" + req.query.Titulo + "%",
+    };
+  }
+  let items = await db.Album.findAndCountAll({
+    attributes: [
+      "IdAlbum",
+      "Titulo",
+      "Artista",
+      "idgenero",
+      "FechaLanzamiento",
+    ],
+    order: [["Titulo", "ASC"]],
+    where,
+  });
+
+  res.json(items.rows);
+});
 
 router.get("/api/albumes", async function (req, res, next) {
   let data = await db.Album.findAll({
