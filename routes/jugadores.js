@@ -1,14 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const { Op, ValidationError } = require("sequelize");
 const db = require("../base-orm/sequelize-init-jugadores");
 
-router.get("/api/jugadores", async function (req, res, next) {
-  let data = await db.Jugador.findAll({
-    attributes: ["IdJugador", "Nombre", "Apellido", "FechaNacimiento", "Goles"],
-  });
-  res.json(data);
-});
 
 router.get("/api/jugadores", async function (req, res) {
   let where = {};
