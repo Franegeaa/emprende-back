@@ -10,6 +10,21 @@ router.get("/api/jugadores", async function (req, res, next) {
   res.json(data);
 });
 
+router.get("/api/jugadores", async function (req, res) {
+  let where = {};
+  if (req.query.Nombre != undefined && req.query.Nombre !== "") {
+    where.Nombre = {
+      [Op.like]: "%" + req.query.Nombre + "%",
+    };
+  }
+
+  let jugadores = await db.Jugador.findAll({
+    attributes: ["IdJugador", "Nombre", "Apellido", "FechaNacimiento", "Goles"],
+    where,
+  });
+  res.json(jugadores);
+});
+
 router.get("/api/jugadores/:id", async function (req, res, next) {
   try {
     const jugadorId = req.params.id;
