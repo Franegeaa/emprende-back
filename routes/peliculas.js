@@ -13,7 +13,7 @@ router.get("/api/peliculas", async function (req, res) {
   }
   let items = await db.peliculas.findAndCountAll({
     attributes: [
-      "IdPelicula",
+      "idPelicula",
       "Titulo",
       "Productor",
       "FechaLanzamiento",
@@ -96,7 +96,6 @@ router.put('/api/peliculas/:id', async (req, res, next) => {
     }
   });
   
-  module.exports = router;
   
 router.delete('/api/peliculas/:id', async (req, res) => {
     try {
