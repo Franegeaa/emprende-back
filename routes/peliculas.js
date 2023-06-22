@@ -1,7 +1,31 @@
 const express = require("express");
 const router = express.Router();
-
 const db = require("../base-orm/sequelize-init-peliculas");
+const { Op, ValidationError } = require("sequelize");
+
+router.get("/api/peliculas", async function (req, res) {
+ 
+  let where = {};
+  if (req.query.Titulo != undefined && req.query.Titulo !== "") {
+    where.Titulo = {
+      [Op.like]: "%" + req.query.Titulo + "%",
+    };
+  }
+  let items = await db.peliculas.findAndCountAll({
+    attributes: [
+      "idPelicula",
+      "Titulo",
+      "Productor",
+      "FechaLanzamiento",
+      "DuracionMinutos",
+    ],
+    order: [["Titulo", "ASC"]],
+    where,
+  });
+
+  res.json(items.rows);
+});
+
 
 router.get("/api/peliculas", async function (req, res, next) {
   let data = await db.peliculas.findAll({
@@ -72,7 +96,6 @@ router.put('/api/peliculas/:id', async (req, res, next) => {
     }
   });
   
-  module.exports = router;
   
 router.delete('/api/peliculas/:id', async (req, res) => {
     try {
