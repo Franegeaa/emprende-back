@@ -1,10 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-require("./base-orm/sqlite-init-peliculas"); // crear base si no existe
-require("./base-orm/sqlite-init-jugadores"); // crear base si no existe
 const app = express();
-require("./base-orm/sqlite-init-autos");
-require("./base-orm/sqlite-init-albumes"); // crear base si no existe
+
+require("./base-orm/sqlite-init"); // crear base si no existe
 app.use(express.json()); // para poder leer json en el body
 app.use(cors());
 

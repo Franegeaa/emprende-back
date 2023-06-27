@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 //Administrar albumes
-const db = require("../base-orm/sequelize-init-albumes");
+const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
 router.get("/api/albumes", async function (req, res) {

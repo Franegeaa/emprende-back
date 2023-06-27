@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../base-orm/sequelize-init-autos.js");
+const db = require("../base-orm/sequelize-init.js");
 const { Op, ValidationError } = require("sequelize");
 
 // Obtener todos los autos

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../base-orm/sequelize-init-peliculas");
+const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
 router.get("/api/peliculas", async function (req, res) {

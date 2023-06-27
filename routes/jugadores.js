@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../base-orm/sequelize-init-jugadores");
-const { Op } = require("sequelize");
+const db = require("../base-orm/sequelize-init");
+const { Op, ValidationError } = require("sequelize");
 
 router.get("/api/jugadores", async function (req, res) {
   let where = {};
@@ -42,10 +42,9 @@ router.get("/api/jugadores/:id", async function (req, res, next) {
 });
 
 router.post("/api/jugadores/", async (req, res) => {
-  let { IdJugador, Nombre, Apellido, FechaNacimiento, Goles } = req.body;
+  let { Nombre, Apellido, FechaNacimiento, Goles } = req.body;
   try {
     let newJugador = await db.Jugador.create({
-      IdJugador: IdJugador,
       Nombre: Nombre,
       Apellido: Apellido,
       FechaNacimiento: FechaNacimiento,
